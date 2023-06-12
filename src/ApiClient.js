@@ -13,8 +13,8 @@ const BASE_URL = 'https://api.openweathermap.org/data/3.0/onecall';
 export class ApiClient {
     // Define a method called 'getWeather' which takes a 'city' parameter
     getWeather() {
-        const latitude = 40.7127281;
-        const longitude = -74.0060152;
+        const latitude = 53.381969832596965;
+        const longitude = -1.4778287729124848;
         const exclude = 'hourly,minutely';
         const units = 'metric';
     
