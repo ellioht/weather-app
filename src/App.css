@@ -1,8 +1,20 @@
 .App {
   text-align: center;
+  background-color: #F8F8F8;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ded9d9;
+  /* background-image: url(); */
+  color: #333;
 }
 
 h1 {
   font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
   padding: 20px;
+  background-color: #F8F8F8;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
