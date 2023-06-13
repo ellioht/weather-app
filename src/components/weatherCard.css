@@ -1,0 +1,64 @@
+.weather-card {
+    width: 18rem;
+    margin: 20px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #0077ff, #0033ff, #00aaff);
+    color: white;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .weather-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+    transform: translateX(-100%);
+    animation: wave 10s linear infinite;
+  }
+  
+  @keyframes wave {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .weather-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .weather-image {
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 4px 8px 8px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .day {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .temperature,
+  .windspeed {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .weather-card {
+      width: 100%;
+    }
+  }
+  
