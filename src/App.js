@@ -9,14 +9,27 @@ function App() {
 
   // Weather state
   const [weather, setWeather] = useState(null);
+  const [weatherData, setWeatherData] = useState([]);
 
+  // useEffect for weather
   useEffect(() => {
     const fetchData = async () => {
-      const response = await apiClient.getWeather();
-      setWeather(response.data);
+      try {
+        const response = await apiClient.getWeather();
+        setWeather(response.data);
+        setWeatherData(response.data.daily.slice(0, 5));
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, []);
+
+  // Day Name
+  const getDayName = (date) => {
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return days[new Date(date * 1000).getDay()];
+  };
 
   // Component rendering
   return (
@@ -28,11 +41,14 @@ function App() {
           </div>
         </Row>
         <Row className="justify-content-center align-items-center">
-          <WeatherCard day="Monday" text={weather && weather.daily[0].temp.day} img={weather && weather.daily[0].weather[0].icon} />
-          <WeatherCard day="Tuesday" text={weather && weather.daily[1].temp.day} img={weather && weather.daily[1].weather[0].icon} />
-          <WeatherCard day="Wednesday" text={weather && weather.daily[2].temp.day} img={weather && weather.daily[2].weather[0].icon} />
-          <WeatherCard day="Thursday" text={weather && weather.daily[3].temp.day} img={weather && weather.daily[3].weather[0].icon} />
-          <WeatherCard day="Friday" text={weather && weather.daily[4].temp.day} img={weather && weather.daily[4].weather[0].icon} />
+          {weatherData.map((data, index) => (
+            <WeatherCard
+              key={index}
+              day={getDayName(data.dt)}
+              text={data.temp.day}
+              img={data.weather[0].icon}
+            />
+          ))}
         </Row>
       </Container>
     </>
