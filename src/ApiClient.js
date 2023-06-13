@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/3.0/onecall';
@@ -14,13 +13,20 @@ const BASE_URL = 'https://api.openweathermap.org/data/3.0/onecall';
 export class ApiClient {
 
   // Define a method called 'getWeather' which takes a 'city' parameter
-  getWeather() {
+  getWeather(city) {
       const latitude = 53.381969832596965;
       const longitude = -1.4778287729124848;
       const exclude = 'hourly,minutely';
       const units = 'metric';
-    
-      const url = `${BASE_URL}?lat=${latitude}&lon=${longitude}&exclude=${exclude}&units=${units}&appid=${apiKey}`;
+
+      // If a city is provided, use the city name in the API call
+      let url;
+      if (city) {
+        url = `${BASE_URL}?q=${city}&exclude=${exclude}&units=${units}&appid=${apiKey}`;
+        return axios.get(url);
+      } else {
+        url = `${BASE_URL}?lat=${latitude}&lon=${longitude}&exclude=${exclude}&units=${units}&appid=${apiKey}`;
+      }
       return axios.get(url);
     }
 }
