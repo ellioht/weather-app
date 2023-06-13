@@ -1,0 +1,10 @@
+/* search bar style */
+.search-bar {
+    width: 25%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+}
