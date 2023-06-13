@@ -1,5 +1,5 @@
 .weather-card {
-    width: 18rem;
+    width: 20rem;
     margin: 20px;
     border-radius: 10px;
     background: linear-gradient(45deg, #0077ff, #0033ff, #00aaff);
@@ -45,7 +45,7 @@
   }
   
   .day {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     margin-bottom: 10px;
   }
