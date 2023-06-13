@@ -25,10 +25,17 @@ function App() {
     fetchData();
   }, []);
 
-  // Day Name
+  // Day / Date Name
   const getDayName = (date) => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    return days[new Date(date * 1000).getDay()];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    const currentDate = new Date(date * 1000);
+    const day = days[currentDate.getDay()];
+    const month = months[currentDate.getMonth()];
+    const dayNumber = currentDate.getDate();
+  
+    return `${day}, ${month} ${dayNumber}`;
   };
 
   // Component rendering
