@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-// import "./components/searchBar.css";
+import "./components/searchBar.css";
 import { ApiClient } from "./ApiClient";
 import { Container, Row } from "react-bootstrap";
 import WeatherCard from "./components/weatherCard";
@@ -63,7 +63,7 @@ function App() {
           </div>
         </Row>
         <Row className="justify-content-center align-items-center">
-          <SearchBar onSearch={(city) => handleSearch(city)} />          
+          <SearchBar className="search-bar" onSearch={(city) => handleSearch(city)} />          
         </Row>
         <Row className="justify-content-center align-items-center">
           {weatherData.map((data, index) => (
@@ -71,6 +71,7 @@ function App() {
               key={index}
               day={getDayName(data.dt)}
               text={data.temp.day}
+              wind={data.wind_speed}
               img={data.weather[0].icon}
             />
           ))}

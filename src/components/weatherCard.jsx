@@ -11,7 +11,7 @@ return (
       <Card.Body>
         <Card.Title className="day">{props.day}</Card.Title>
         <Card.Text className="temperature">Temp {props.text}°C</Card.Text>
-        <Card.Text className="windspeed">Windspeed {props.text}mph</Card.Text>
+        <Card.Text className="windspeed">Windspeed {props.wind}mph</Card.Text>
   
       </Card.Body>
     </Card>
