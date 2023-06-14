@@ -20,3 +20,11 @@ h1 {
   /* background-image: url(https://cdn.pixabay.com/photo/2018/04/04/14/45/design-3289984_1280.png); */
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
 }
+
+h2 {
+  font-family: Tahoma, sans-serif;
+  /* font-weight: bold; */
+  padding: 5px;
+  background-color: #F8F8F8;  
+  text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+}

@@ -15,21 +15,25 @@ function App() {
 
   // Location state
   const [location, setLocation] = useState('');
-  const handleSearch = (query) => {
-    setLocation(query);
+  const [city, setCity] = useState('');
+  const [capitalisedCity, setCapitalisedCity] = useState('');
+  const handleSearch = (query) => {    
+    const upperCaseCity = query.toUpperCase();
+    // setCapitalisedCity(upperCaseCity);
+    setLocation(upperCaseCity); 
   };
-
 
   // useEffect for weather
   useEffect(() => {
     const fetchData = async () => {
       try {
         const geoResponse = await apiClient.getCoordinates(location);
+        setCapitalisedCity(geoResponse.data[0].name.toUpperCase());
         const lat = geoResponse.data[0].lat;
         const lon = geoResponse.data[0].lon;
-
+       
         const response = await apiClient.getWeather(lat, lon);
-        console.log(location);
+        setCity(location);
         setWeather(response.data);
         setWeatherData(response.data.daily.slice(0, 5));
       } catch (error) {
@@ -42,15 +46,22 @@ function App() {
   // Day / Date Name
   const getDayName = (date) => {
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
     const currentDate = new Date(date * 1000);
+
     const day = days[currentDate.getDay()];
+    
+    return `${day}, `;
+  };
+  const getDateName = (date) => {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const currentDate = new Date(date * 1000);
+
     const month = months[currentDate.getMonth()];
     const dayNumber = currentDate.getDate();
   
-    return `${day}, ${month} ${dayNumber}`;
+    return `${month} ${dayNumber}`;
   };
+ 
 
   
   // Component rendering
@@ -60,6 +71,7 @@ function App() {
         <Row>
           <div className="App">
             <h1>Sky Savvy Weather</h1>
+            <h2>{capitalisedCity}</h2>
           </div>
         </Row>
         <Row className="justify-content-center align-items-center">
@@ -70,9 +82,12 @@ function App() {
             <WeatherCard
               key={index}
               day={getDayName(data.dt)}
-              text={data.temp.day}
+              date={getDateName(data.dt)}
+              min={data.temp.min}
+              max={data.temp.max}
               wind={data.wind_speed}
               img={data.weather[0].icon}
+              description={data.weather[0].description}
             />
           ))}
         </Row>
