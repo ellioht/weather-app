@@ -1,0 +1,9 @@
+.summery-card {
+  margin: 0px 20px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #0077ff, #0033ff, #00aaff);
+  color: white;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+  position: relative;
+}
