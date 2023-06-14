@@ -7,6 +7,12 @@ const SearchBar = ({ onSearch }) => {
     setCity(e.target.value);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+        handleSearch();
+      }
+    };
+
   const handleSearch = () => {
     onSearch(city);
     setCity("");
@@ -14,8 +20,8 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <div className="search-bar">
-      <input type="text" placeholder="Enter city name..." value={city} onChange={handleCityChange} />
-      <button onClick={handleSearch}>Search</button>
+      <input className="inpt" type="text" placeholder="Enter city name..." value={city} onChange={handleCityChange} onKeyPress={handleKeyPress} />
+      <button className="searchBtn" onClick={handleSearch}>Search</button>
     </div>
   );
 };

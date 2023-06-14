@@ -1,5 +1,5 @@
 .weather-card {
-    width: 20rem;
+    width: 21rem;
     margin: 20px;
     border-radius: 10px;
     background: linear-gradient(45deg, #0077ff, #0033ff, #00aaff);
@@ -41,9 +41,17 @@
   .weather-image {
     margin-top: 10px;
     border-radius: 5px;
-    box-shadow: 4px 8px 8px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 8px 8px 4px rgba(0, 0, 0, 0.3);
+    width: 120px;
   }
   
+  .cardHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+
   .day {
     font-size: 22px;
     font-weight: bold;
