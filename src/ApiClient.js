@@ -22,8 +22,8 @@ export class ApiClient {
       const url = `${BASE_URL}?lat=${latitude}&lon=${longitude}&exclude=${exclude}&units=${units}&appid=${apiKey}`;
       return axios.get(url);
     }
-    getCoordinates(city) {
-      const url = `${GEOCODING_API_URL}?q=${city}&limit=1&appid=${apiKey}`;
-      return axios.get(url);
-    }
+  getCoordinates(city) {
+    const url = `${GEOCODING_API_URL}?q=${city}&limit=1&appid=${apiKey}`;
+    return axios.get(url);
+  }
 }

@@ -18,7 +18,7 @@ function App() {
   const [cardIndex, setCardIndex] = useState(null);
 
   // Location state
-  const [location, setLocation] = useState("Sheffield");
+  const [location, setLocation] = useState("");
   const [city, setCity] = useState("");
   const [capitalisedCity, setCapitalisedCity] = useState("");
   const handleSearch = (query) => {
@@ -32,7 +32,7 @@ function App() {
     const fetchData = async () => {
       try {
         const geoResponse = await apiClient.getCoordinates(location);
-        setCapitalisedCity(geoResponse.data[0].name.toUpperCase());
+        setCapitalisedCity(`${geoResponse.data[0].name}, ${geoResponse.data[0].country}`);
         const lat = geoResponse.data[0].lat;
         const lon = geoResponse.data[0].lon;
 
@@ -85,59 +85,60 @@ function App() {
     } else {
       setCardIndex(index);
     }
-  }
+  };
 
   // Component rendering
   return (
-    <>
-      <Container fluid>
-        <Row>
-          <div className="App">
-            <h1>Sky Savvy Weather</h1>
-            <h2>{capitalisedCity}</h2>
-          </div>
-        </Row>
-        <Row className="justify-content-center align-items-center">
-          <SearchBar className="search-bar" onSearch={(city) => handleSearch(city)} />
-        </Row>
-        <Row className="justify-content-center">
-            {weatherData.map((data, index) => {
-              return (
-                <div style={{width: "23rem"}}
-                  key={index}
-                >
-                  <WeatherCard
-                    day={getDayName(data.dt)}
-                    date={getDateName(data.dt)}
-                    temp={data.temp.day}
-                    min={data.temp.min}
-                    max={data.temp.max}
-                    img={data.weather[0].icon}
-                    description={data.weather[0].description}
-                    summary={() => toggleSummary(index)}
-                    wind={data.wind_speed}
+    <div className={`App ${location !== "" ? 'flex-start' : ''}`}>
+      <div className="title-head">
+        <h1>Sky Savvy Weather <span className="copyright">©</span></h1>
+      </div>
+
+      <div className="search-container d-flex justify-content-center align-items-center">
+        <SearchBar onSearch={(city) => handleSearch(city)} />
+      </div>
+
+      <div className="location">
+        <h2>{capitalisedCity}</h2>
+      </div>
+
+      {location !== "" &&
+      <div className="cards-container mt-2 mb-2">
+        {weatherData.map((data, index) => {
+          return (
+            <div style={{ width: "21rem" }} key={index}>
+              <WeatherCard
+                day={getDayName(data.dt)}
+                date={getDateName(data.dt)}
+                temp={data.temp.day}
+                min={data.temp.min}
+                max={data.temp.max}
+                img={data.weather[0].icon}
+                description={data.weather[0].description}
+                summary={() => toggleSummary(index)}
+                wind={data.wind_speed}
+              />
+              {cardIndex === index && (
+                <div className="summary-card-container">
+                  <SummeryCard
+                    className="summary-card"
+                    sunrise={data.sunrise}
+                    sunset={data.sunset}
+                    humidity={data.humidity}
+                    pressure={data.pressure}
+                    uvi={data.uvi}
+                    clouds={data.clouds}
+                    rain={data.rain}
+                    snow={data.snow}
                   />
-                  {cardIndex === index && 
-                  <div className="summary-card-container">
-                    <SummeryCard
-                      className="summary-card"
-                      sunrise={data.sunrise}
-                      sunset={data.sunset}
-                      humidity={data.humidity}
-                      pressure={data.pressure}
-                      uvi={data.uvi}
-                      clouds={data.clouds}
-                      rain={data.rain}
-                      snow={data.snow}
-                    />
-                  </div>
-                  }
                 </div>
-              );
-            })}
-        </Row>
-      </Container>
-    </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      }
+    </div>
   );
 }
 
