@@ -1,5 +1,5 @@
 .weather-card {
-    margin: 20px;
+    margin: 10px 20px;
     border-radius: 10px;
     /* background: linear-gradient(45deg, #0077ff, #0033ff, #00aaff); */
     background: linear-gradient(45deg, var(--main-color), var(--main-color-dark), var(--main-color));

@@ -12,7 +12,6 @@ html, body {
   color: #343232;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-color: var(--main-color-light);
-  width: 100%;
 }
 
 .App {
@@ -35,7 +34,6 @@ html, body {
 
 .title-head {
   text-align: center;
-  width: 100%;
   color: var(--main-color-gray);
   padding: 10px;
   font-weight: bold;
@@ -54,6 +52,11 @@ html, body {
   margin: 30px 0;
   flex-direction: column;
 }
+.location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .location h2 {
   text-align: center;
@@ -61,6 +64,7 @@ html, body {
   font-weight: bold;
   color: var(--main-color-gray);
   padding: 10px;
+  margin-top: 10px;
 }
 
 .summary-card-container {
@@ -73,9 +77,31 @@ html, body {
   justify-content: center;
   align-items: flex-start;
   margin: 0 auto;
+  padding: 0;
 }
 .copyright {
   position: relative;
   top: -25px;
   font-size: 20px;
+}
+
+.goback {
+  position: relative;
+  width: 25px;
+  height: 25px;
+
+  background-image: url("/src/icons/multiply.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
+  color: var(--main-color-white);
+
+}
+.gobackbtn {
+  position: relative;
+  margin: 0 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  top: -10px;
 }

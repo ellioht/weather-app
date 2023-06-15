@@ -29,9 +29,9 @@
   padding: 10px 20px;
   background-color: var(--main-color-white);
   background-image: url("/src/icons/search.svg");
-  background-size: 20px; /* Adjusted property */
+  background-size: 20px;
   background-position: center;
-  background-repeat: no-repeat; /* Added property */
+  background-repeat: no-repeat; 
   color: var(--main-color-white);
   border: none;
   font-size: 16px;

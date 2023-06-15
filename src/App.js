@@ -1,9 +1,11 @@
+// Project collaborators: Elliot Hallam, Venotha Delan, Louis Sorensen, John Ratcliffe
+
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "./components/searchBar.css";
 import { ApiClient } from "./ApiClient";
-import { Container, Row, Col } from "react-bootstrap";
 import WeatherCard from "./components/weatherCard";
+import CurrentCard from "./components/currentCard";
 import SummeryCard from "./components/summeryCard";
 import SearchBar from "./components/searchBar";
 
@@ -21,6 +23,7 @@ function App() {
   const [location, setLocation] = useState("");
   const [city, setCity] = useState("");
   const [capitalisedCity, setCapitalisedCity] = useState("");
+
   const handleSearch = (query) => {
     const upperCaseCity = query.toUpperCase();
     // setCapitalisedCity(upperCaseCity);
@@ -37,15 +40,21 @@ function App() {
         const lon = geoResponse.data[0].lon;
 
         const response = await apiClient.getWeather(lat, lon);
-        setCity(location);
         setWeather(response.data);
-        setWeatherData(response.data.daily.slice(0, 5));
+        setCity(location);
+        setWeatherData(response.data.daily.slice(1, 5));
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
   }, [location]);
+
+  // Sunrise / Sunset 24hr time
+  const getTimeString = (timeStamp) => {
+    const date = new Date(timeStamp * 1000);
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
 
   // Day / Date Name
   const getDayName = (date) => {
@@ -79,13 +88,20 @@ function App() {
     return `${month} ${dayNumber}`;
   };
 
+  // Toggle summary card for individual weather card
   const toggleSummary = (index) => {
     if (cardIndex === index) {
       setCardIndex(null);
     } else {
       setCardIndex(index);
     }
-  };
+  }; 
+
+  // reset search when button pressed
+  const resetSearch = () => {
+    setLocation("");
+    setCapitalisedCity("");
+  }
 
   // Component rendering
   return (
@@ -99,37 +115,59 @@ function App() {
       </div>
 
       <div className="location">
-        <h2>{capitalisedCity}</h2>
+        <h2>
+          {capitalisedCity}
+        </h2>
+        {location !== "" &&
+        <button onClick={resetSearch} className="gobackbtn">
+          <div className="goback"></div>
+        </button>
+        } 
       </div>
 
-      {location !== "" &&
-      <div className="cards-container mt-2 mb-2">
+      {location !== "" && weather !== null &&
+      <div className="cards-container">
+        <div style={{ width: "26rem" }}>
+        <CurrentCard 
+          temp={Math.round(weather.current.temp)}
+          min={weather.daily[0].temp.min}
+          max={weather.daily[0].temp.max}
+          img={weather.current.weather[0].icon}
+          description={weather.current.weather[0].description}
+          sunrise={getTimeString(weather.current.sunrise)}
+          sunset={getTimeString(weather.current.sunset)}
+          day={getDayName(weather.current.dt)}
+          date={getDateName(weather.current.dt)}
+        />
+        </div>
         {weatherData.map((data, index) => {
           return (
             <div style={{ width: "21rem" }} key={index}>
               <WeatherCard
                 day={getDayName(data.dt)}
                 date={getDateName(data.dt)}
-                temp={data.temp.day}
+                temp={Math.round(data.temp.day)}
                 min={data.temp.min}
                 max={data.temp.max}
                 img={data.weather[0].icon}
                 description={data.weather[0].description}
                 summary={() => toggleSummary(index)}
                 wind={data.wind_speed}
+                rain={data.rain}
               />
               {cardIndex === index && (
                 <div className="summary-card-container">
                   <SummeryCard
                     className="summary-card"
-                    sunrise={data.sunrise}
-                    sunset={data.sunset}
+                    sunrise={getTimeString(data.sunrise)}
+                    sunset={getTimeString(data.sunset)}
                     humidity={data.humidity}
                     pressure={data.pressure}
                     uvi={data.uvi}
                     clouds={data.clouds}
                     rain={data.rain}
                     snow={data.snow}
+                    wind={data.wind_speed}
                   />
                 </div>
               )}
