@@ -2,6 +2,7 @@
   --main-color: #4dabf7;
   --main-color-light: #dee2e6;
   --main-color-dark: #4c6ef5;
+  --main-color-indigo: #364fc7;
   --main-color-white: #f8f9fa;
   --main-color-gray: #343a40;
 }
@@ -21,7 +22,7 @@ html, body {
   justify-content: center;
 }
 .App.flex-start {
-  animation: flexTransition 2s ease forwards;
+  animation: flexTransition 0s ease forwards;
 }
 @keyframes flexTransition {
   from {
@@ -35,7 +36,7 @@ html, body {
 .title-head {
   text-align: center;
   color: var(--main-color-gray);
-  padding: 10px;
+  padding: 0px;
   font-weight: bold;
   margin: 0;
   text-align: center;
@@ -50,7 +51,7 @@ html, body {
 
 .search-container {
   margin: 30px 0;
-  flex-direction: column;
+  gap: 20px;
 }
 .location {
   display: flex;
@@ -61,7 +62,6 @@ html, body {
 .location h2 {
   text-align: center;
   font-size: 30px;
-  font-weight: bold;
   color: var(--main-color-gray);
   padding: 10px;
   margin-top: 10px;
@@ -89,13 +89,15 @@ html, body {
   position: relative;
   width: 25px;
   height: 25px;
-
   background-image: url("/src/icons/multiply.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat; 
   color: var(--main-color-white);
-
+  transition: transform 0.3s;
+}
+.goback:hover {
+  transform: rotate(90deg);
 }
 .gobackbtn {
   position: relative;
@@ -103,5 +105,5 @@ html, body {
   padding: 0;
   border: 0;
   background: none;
-  top: -10px;
+  top: -30px;
 }
