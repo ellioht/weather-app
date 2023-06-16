@@ -9,6 +9,7 @@ import SummeryCard from "./components/summeryCard";
 import SearchBar from "./components/searchBar";
 import ToggleUnit from "./components/toggleUnits";
 
+
 function App() {
   const apiClient = new ApiClient();
 
@@ -27,6 +28,8 @@ function App() {
   const [unit, setUnit] = useState("metric");
   const [unitSymbol, setUnitSymbol] = useState("°C");
 
+  // const [timezone, setTimezone] = useState("Europe/London");
+
   // useEffect for weather
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +41,10 @@ function App() {
         const lon = geoResponse.data[0].lon;
 
         const units = unit;
+
+        // const newTimezone = moment.tz.zoneNameAt(lat, lon);
+        // console.log(lat, lon, newTimezone);
+        // setTimezone(newTimezone);
 
         const response = await apiClient.getWeather(lat, lon, units);
         setWeather(response.data);
@@ -56,9 +63,14 @@ function App() {
   };
 
   // Sunrise / Sunset 24hr time
-  const getTimeString = (timeStamp) => {
+  const getTimeString = (timeStamp, timeZone) => {
     const date = new Date(timeStamp * 1000);
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); 
+    const options = {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: timeZone
+    };
+    return date.toLocaleTimeString([], options);
   };
 
   // Day Name
@@ -139,8 +151,8 @@ function App() {
               max={weather.daily[0].temp.max.toFixed(1)}
               img={weather.current.weather[0].icon}
               description={weather.current.weather[0].description}
-              sunrise={getTimeString(weather.current.sunrise)}
-              sunset={getTimeString(weather.current.sunset)}
+              sunrise={getTimeString(weather.current.sunrise, "Europe/London")}
+              sunset={getTimeString(weather.current.sunset, "Europe/London")}
               day={getDayName(weather.current.dt)}
               date={getDateName(weather.current.dt)}
               rain={weather.daily[0].rain ? Math.round(weather.daily[0].rain) : 0}
@@ -172,8 +184,8 @@ function App() {
                   <div className="summary-card-container">
                     <SummeryCard
                       className="summary-card"
-                      sunrise={getTimeString(data.sunrise)}
-                      sunset={getTimeString(data.sunset)}
+                      sunrise={getTimeString(weather.current.sunrise, "Europe/London")}
+                      sunset={getTimeString(weather.current.sunset, "Europe/London")}
                       humidity={data.humidity}
                       pressure={data.pressure}
                       uvi={data.uvi}

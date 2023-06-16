@@ -19,4 +19,7 @@
     transition: transform 0.3s;
     position: relative;
   }
+  .weather-card-current:hover {
+    transform: translateY(-5px);
+  }
   
