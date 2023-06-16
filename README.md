@@ -1,5 +1,5 @@
 ### React Weather App
-This weather app is built in reat and uses the open weather one call api.
+This weather app is built in react and uses the open weather one call api.
 ## Features
 - Search bar to search for a location.
 - Celcius and Farenheit toggle button.
