@@ -5,3 +5,18 @@
 .weather-image-current {
     width: 120px;
 }
+.currentCardBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.weather-card-current {
+    margin: 10px 20px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, var(--main-color-dark), var(--main-color-indigo), var(--main-color-dark));
+    color: white;
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    position: relative;
+  }
+  

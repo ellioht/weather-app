@@ -11,15 +11,15 @@ return (
         <div className="cardHead">
           <div>
             <Card.Title className="day">{props.day}<br/>{props.date}<br/></Card.Title>
-            <Card.Text className="temperature description">{props.description}</Card.Text>
-            <Card.Text className="temperaturemain">{props.temp}°C</Card.Text>
+            <Card.Text className="temperaturemain">{props.temp}{props.unit}</Card.Text>
           </div>
           <Card.Img className="weather-image" variant="top" src={image} />
         </div>
+        <Card.Text className="temperature description">{props.description}</Card.Text>
         <hr/>
-        <Card.Text className="temperature">Temp Max: {props.max}°C</Card.Text>
-        <Card.Text className="temperature">Temp Min: {props.min}°C</Card.Text>
-        <Card.Text className="windspeed">Windspeed: {props.wind}mph</Card.Text>
+        <Card.Text className="windspeed">Chance of rain: {props.rain}%</Card.Text>
+        <Card.Text className="temperature"><span className="arrow arrow-up"></span>Highs: {props.max}{props.unit}</Card.Text>
+        <Card.Text className="temperature"><span className="arrow arrow-down"></span>Lows: {props.min}{props.unit}</Card.Text>
         <button className="summaryBtn" onClick={props.summary}>Summary</button>
       </Card.Body>
     </Card>
